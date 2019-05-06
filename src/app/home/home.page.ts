@@ -17,4 +17,9 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.tasks = this.taskService.getTasks();
   }
+
+  addTask(): void {
+    const description = 'Lorem irure quis ex id ut anim enim veniam voluptate elit dolore est voluptate.';
+    this.taskService.addTask(description)
+  }
 }

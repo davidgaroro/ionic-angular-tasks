@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { firestore } from 'firebase/app';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -32,4 +33,14 @@ export class TaskService {
         }))
       );
     }
+
+  /** POST: add a new task to Firestore */
+  addTask(description: string): void {
+    const timestamp = firestore.FieldValue.serverTimestamp();
+    this.tasksCollection.add({
+      description,
+      created: timestamp,
+      modified: timestamp
+    })
+  }
 }
