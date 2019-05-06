@@ -7,13 +7,14 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    <ul>
-      <li *ngFor="let task of tasks | async">
-        {{ task.id }}: {{ task.description }}
-      </li>
-    </ul>
-  </div>
+  <ion-list lines="full">
+    <ion-item *ngFor="let task of tasks | async">
+      <ion-label text-wrap>
+        {{task.description}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+      
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addTask()">
       <ion-icon name="add"></ion-icon>
