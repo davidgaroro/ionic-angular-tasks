@@ -30,7 +30,7 @@ export class TaskService {
   /** GET: tasks from Firestore */
   getTasks(): Observable<TaskId[]> {
     return this.db.collection<Task>('tasks', ref => 
-      ref.orderBy('modified', 'desc').limit(50)
+      ref.orderBy('modified', 'desc').limit(30)
     )
     .snapshotChanges().pipe(
       map(actions => actions.map(a => {
