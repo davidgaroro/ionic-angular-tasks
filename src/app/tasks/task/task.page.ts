@@ -45,4 +45,9 @@ export class TaskPage implements OnInit, OnDestroy {
       this.taskService.updateTask({ id: task.id, description });
     }
   }
+
+  deleteTask(task: TaskId): void {
+    this.taskService.deleteTask(task);
+    // TODO: add recover task toast
+  }
 }

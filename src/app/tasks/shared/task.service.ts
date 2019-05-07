@@ -20,6 +20,13 @@ export class TaskService {
 
   //////// Tasks methods ////////
 
+  /** POST: add a new task to Firestore */
+  addTask(): Promise<DocumentReference> {
+    const timestamp = firestore.FieldValue.serverTimestamp();
+    const task: Task = { description: '', created: timestamp };
+    return this.tasksCollection.add(task);
+  }
+
   /** GET: tasks from Firestore */
   getTasks(): Observable<TaskId[]> {
     return this.db.collection<Task>('tasks', ref => 
@@ -34,13 +41,6 @@ export class TaskService {
     );
   }
 
-  /** POST: add a new task to Firestore */
-  addTask(): Promise<DocumentReference> {
-    const timestamp = firestore.FieldValue.serverTimestamp();
-    const task: Task = { description: '', created: timestamp };
-    return this.tasksCollection.add(task);
-  }
-
   /** GET: task by id from Firestore */
   getTask(id: string): Observable<TaskId> {
     return this.tasksCollection.doc<Task>(id).valueChanges().pipe(
@@ -53,5 +53,10 @@ export class TaskService {
     const timestamp = firestore.FieldValue.serverTimestamp();
     const task = { description, modified: timestamp };
     this.tasksCollection.doc<Task>(id).update(task);
+  }
+
+  /** DELETE: delete the task from Firestore */
+  deleteTask({ id }: TaskId): void {
+    this.tasksCollection.doc<Task>(id).delete();
   }
 }
