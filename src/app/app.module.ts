@@ -21,7 +21,7 @@ import { firebaseConfig } from '../environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),  // imports firebase/app needed for everything
-    AngularFirestoreModule // imports firebase/firestore, only needed for database features
+    AngularFirestoreModule.enablePersistence() // imports firebase/firestore, only needed for database features
   ],
   providers: [
     StatusBar,
