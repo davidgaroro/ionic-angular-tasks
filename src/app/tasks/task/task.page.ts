@@ -30,13 +30,18 @@ export class TaskPage implements OnInit, OnDestroy {
       switchMap((params: ParamMap) =>
         this.taskService.getTask(params.get('id')))
     ).subscribe(task => {
+      // Check if task exists otherwise redirect to home
       if (task.created) this.task = task;
-      else this.navController.navigateBack('home');
+      else this.goBack();
     });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  goBack(): void {
+    this.navController.navigateBack('home');
   }
   
   updateTask(task: TaskId, description: string): void {
@@ -45,9 +50,10 @@ export class TaskPage implements OnInit, OnDestroy {
       this.taskService.updateTask({ id: task.id, description });
     }
   }
-
+  
   deleteTask(task: TaskId): void {
+    this.subscription.unsubscribe();
     this.taskService.deleteTask(task);
-    // TODO: add recover task toast
+    this.goBack();
   }
 }
