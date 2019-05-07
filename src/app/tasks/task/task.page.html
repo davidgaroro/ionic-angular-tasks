@@ -15,7 +15,7 @@
   <ion-textarea
     #description
     *ngIf="task"
-    maxlength="1024"
+    maxlength="280"
     value="{{task.description}}"
     (ionBlur)="updateTask(task, description.value)"
     appAutofocus
