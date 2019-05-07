@@ -23,9 +23,7 @@ export class TaskService {
   /** GET: tasks from Firestore */
   getTasks(): Observable<TaskId[]> {
     return this.db.collection<Task>('tasks', ref => 
-      ref.where('description', '>', '')
-         .orderBy('description')
-         .orderBy('modified', 'desc').limit(50)
+      ref.orderBy('modified', 'desc').limit(50)
     )
     .snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -41,8 +39,7 @@ export class TaskService {
     const timestamp = firestore.FieldValue.serverTimestamp();
     const task: Task = {
       description: '',
-      created: timestamp,
-      modified: timestamp
+      created: timestamp
     }
     return this.tasksCollection.add(task);
   }
