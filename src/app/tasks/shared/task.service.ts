@@ -37,10 +37,7 @@ export class TaskService {
   /** POST: add a new task to Firestore */
   addTask(): Promise<DocumentReference> {
     const timestamp = firestore.FieldValue.serverTimestamp();
-    const task: Task = {
-      description: '',
-      created: timestamp
-    }
+    const task: Task = { description: '', created: timestamp };
     return this.tasksCollection.add(task);
   }
 
@@ -49,5 +46,12 @@ export class TaskService {
     return this.tasksCollection.doc<Task>(id).valueChanges().pipe(
       map(task => ({ id, ...task }))
     );
+  }
+
+  /** PUT: update the task on Firestore */
+  updateTask({ id, description }): void {
+    const timestamp = firestore.FieldValue.serverTimestamp();
+    const task = { description, modified: timestamp };
+    this.tasksCollection.doc<Task>(id).update(task);
   }
 }

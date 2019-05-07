@@ -38,4 +38,11 @@ export class TaskPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+  
+  updateTask(task: TaskId, description: string): void {
+    description = description.trim();
+    if (task.description !== description) {
+      this.taskService.updateTask({ id: task.id, description });
+    }
+  }
 }

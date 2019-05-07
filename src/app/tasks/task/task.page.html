@@ -8,7 +8,9 @@
 
 <ion-content>
   <ion-textarea
+    #description
     *ngIf="task"
     value="{{task.description}}"
+    (ionBlur)="updateTask(task, description.value)"
   ></ion-textarea>
 </ion-content>
