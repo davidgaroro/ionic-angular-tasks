@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'task', loadChildren: './tasks/task/task.module#TaskPageModule' },
+  { path: 'task/:id', loadChildren: './tasks/task/task.module#TaskPageModule' },
 ];
 
 @NgModule({

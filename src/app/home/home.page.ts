@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 
 import { TaskService } from '../tasks/shared/task.service';
@@ -12,14 +14,18 @@ import { TaskId } from '../tasks/shared/task';
 export class HomePage implements OnInit {
   tasks: Observable<TaskId[]>;
 
-  constructor(private taskService: TaskService) { }
+  constructor(
+    private taskService: TaskService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.tasks = this.taskService.getTasks();
   }
 
   addTask(): void {
-    const description = 'Lorem irure quis ex id ut anim enim veniam voluptate elit dolore est voluptate.';
-    this.taskService.addTask(description)
+    this.taskService.addTask().then(doc => {
+      this.router.navigateByUrl(`/task/${doc.id}`)
+    });
   }
 }

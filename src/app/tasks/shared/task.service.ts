@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
 
 import { Observable } from 'rxjs';
@@ -20,27 +20,37 @@ export class TaskService {
 
   //////// Tasks methods ////////
 
-    /** GET: tasks from Firestore */
-    getTasks(): Observable<TaskId[]> {
-      return this.db.collection<Task>('tasks', ref => 
-        ref.orderBy('modified', 'desc').limit(30)
-      )
-      .snapshotChanges().pipe(
-        map(actions => actions.map(a => {
-          const data = a.payload.doc.data() as Task;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        }))
-      );
-    }
+  /** GET: tasks from Firestore */
+  getTasks(): Observable<TaskId[]> {
+    return this.db.collection<Task>('tasks', ref => 
+      ref.where('description', '>', '')
+         .orderBy('description')
+         .orderBy('modified', 'desc').limit(50)
+    )
+    .snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Task;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
 
   /** POST: add a new task to Firestore */
-  addTask(description: string): void {
+  addTask(): Promise<DocumentReference> {
     const timestamp = firestore.FieldValue.serverTimestamp();
-    this.tasksCollection.add({
-      description,
+    const task: Task = {
+      description: '',
       created: timestamp,
       modified: timestamp
-    })
+    }
+    return this.tasksCollection.add(task);
+  }
+
+  /** GET: task by id from Firestore */
+  getTask(id: string): Observable<TaskId> {
+    return this.tasksCollection.doc<Task>(id).valueChanges().pipe(
+      map(task => ({ id, ...task }))
+    );
   }
 }

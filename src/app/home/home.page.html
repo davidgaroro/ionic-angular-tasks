@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-list lines="full">
-    <ion-item *ngFor="let task of tasks | async">
+    <ion-item *ngFor="let task of tasks | async" routerLink="/task/{{task.id}}">
       <ion-label text-wrap>
         {{task.description}}
       </ion-label>
@@ -16,7 +16,7 @@
   </ion-list>
       
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/task">
+    <ion-fab-button (click)="addTask()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
