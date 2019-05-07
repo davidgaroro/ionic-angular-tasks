@@ -15,6 +15,7 @@
   <ion-textarea
     #description
     *ngIf="task"
+    maxlength="1024"
     value="{{task.description}}"
     (ionBlur)="updateTask(task, description.value)"
   ></ion-textarea>
