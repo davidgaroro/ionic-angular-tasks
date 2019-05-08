@@ -17,6 +17,7 @@ import { TaskId } from '../shared/task';
 export class TaskPage implements OnInit, OnDestroy {
 
   private subscription: Subscription;
+  private delete: boolean;
   task: TaskId;
 
   constructor(
@@ -26,6 +27,7 @@ export class TaskPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.delete = false;
     this.subscription = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.taskService.getTask(params.get('id')))
@@ -45,13 +47,18 @@ export class TaskPage implements OnInit, OnDestroy {
   }
   
   updateTask(task: TaskId, description: string): void {
-    description = description.trim();
-    if (task.description !== description) {
-      this.taskService.updateTask({ id: task.id, description });
-    }
+    // Prevent update task onBlur when the Delete button is clicked
+    setTimeout(() => {
+      if (this.delete) { return; }
+      description = description.trim();
+      if (task.description !== description) {
+        this.taskService.updateTask({ id: task.id, description });
+      }
+    }, 100);
   }
   
   deleteTask(task: TaskId): void {
+    this.delete = true;
     this.subscription.unsubscribe();
     this.taskService.deleteTask(task);
     this.goBack();
