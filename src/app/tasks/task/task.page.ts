@@ -33,7 +33,7 @@ export class TaskPage implements OnInit, OnDestroy {
         this.taskService.getTask(params.get('id')))
     ).subscribe(task => {
       // Check if task exists otherwise redirect to home
-      if (task.created) this.task = task;
+      if (task.created !== undefined) this.task = task;
       else this.goBack();
     });
   }

@@ -21,10 +21,12 @@ export class TaskService {
   //////// Tasks methods ////////
 
   /** POST: add a new task to Firestore */
-  addTask(): Promise<DocumentReference> {
+  addTask(): string {
     const timestamp = firestore.FieldValue.serverTimestamp();
     const task: Task = { description: '', created: timestamp };
-    return this.tasksCollection.add(task);
+    const id = this.db.createId();
+    this.tasksCollection.doc<Task>(id).set(task);
+    return id;
   }
 
   /** GET: tasks from Firestore */

@@ -24,8 +24,7 @@ export class HomePage implements OnInit {
   }
 
   addTask(): void {
-    this.taskService.addTask().then(doc => {
-      this.router.navigateByUrl(`/task/${doc.id}`)
-    });
+    const id = this.taskService.addTask();
+    this.router.navigateByUrl(`/task/${id}`)
   }
 }
