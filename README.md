@@ -8,6 +8,13 @@ This project is a simple Tasks CRUD [PWA] with [Firebase] as back-end, perfect t
 [Angular7]: https://angular.io
 [Angularfire2]: https://github.com/angular/angularfire2
 
+<p align="center">
+  <a href="https://ionic-angular-tasks.davidgaroro.es" target="_blank" rel="noopener">
+    <img src="https://ionic-angular-tasks.davidgaroro.es/github/app.png">
+    Live Demo
+  </a>
+</p>
+
 ## Installation & Setup
 ### Clone repository
 ```
