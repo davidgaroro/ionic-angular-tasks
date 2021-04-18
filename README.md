@@ -47,6 +47,6 @@ ionic build --prod
 ng lint
 ```
 ## Donation
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GNML9U2XC2JR6&source=url)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=T7CVYXY994KHJ)
 ## License
 [MIT](./LICENSE) &copy; davidgaroro
