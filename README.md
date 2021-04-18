@@ -10,7 +10,7 @@ This project is a simple Tasks CRUD [PWA] with [Firebase] as back-end, perfect t
 
 <p align="center">
   <a href="https://ionic-angular-tasks.davidgaroro.es" target="_blank" rel="noopener">
-    <img src="https://ionic-angular-tasks.davidgaroro.es/github/app.png">
+    <img src="https://i.imgur.com/LoZLCyo.png">
     Live Demo
   </a>
 </p>
